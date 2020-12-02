@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/microservice.practice.iml" filepath="$PROJECT_DIR$/.idea/modules/microservice.practice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/microservice.practice.main.iml" filepath="$PROJECT_DIR$/.idea/modules/microservice.practice.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/microservice.practice.test.iml" filepath="$PROJECT_DIR$/.idea/modules/microservice.practice.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/spring-microservice-priactice.iml" filepath="$PROJECT_DIR$/.idea/spring-microservice-priactice.iml" />
+    </modules>
+  </component>
+</project>
