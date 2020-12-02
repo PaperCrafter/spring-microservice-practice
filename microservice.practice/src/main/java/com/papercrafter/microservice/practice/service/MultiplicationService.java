@@ -5,6 +5,6 @@ import com.papercrafter.microservice.practice.domain.MultiplicationResultAttempt
 
 public interface MultiplicationService {
     Multiplication createMultiplication();
-    
+
     boolean checkAttempt(final MultiplicationResultAttempt resultAttempt);
 }
