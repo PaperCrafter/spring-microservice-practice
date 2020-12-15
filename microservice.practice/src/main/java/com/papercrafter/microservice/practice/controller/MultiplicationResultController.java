@@ -1,6 +1,5 @@
 package com.papercrafter.microservice.practice.controller;
 
-import com.papercrafter.microservice.practice.domain.Multiplication;
 import com.papercrafter.microservice.practice.domain.MultiplicationResultAttempt;
 import com.papercrafter.microservice.practice.service.MultiplicationService;
 import lombok.Getter;
@@ -8,7 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/results")
@@ -21,11 +23,16 @@ public class MultiplicationResultController {
     }
 
     @PostMapping
-    public ResponseEntity<ResultResponse> postResult(@RequestBody MultiplicationResultAttempt
+    public ResponseEntity<MultiplicationResultAttempt> postResult(@RequestBody MultiplicationResultAttempt
                                                       multiplicationResultAttempt){
-        return ResponseEntity.ok(
-                new ResultResponse(multiplicationService
-                    .checkAttempt(multiplicationResultAttempt)));
+        boolean isCorrect = multiplicationService.checkAttempt(multiplicationResultAttempt);
+        MultiplicationResultAttempt attemptCopy = new MultiplicationResultAttempt(
+                multiplicationResultAttempt.getUser(),
+                multiplicationResultAttempt.getMultiplication(),
+                multiplicationResultAttempt.getResultAttempt(),
+                isCorrect
+        );
+        return ResponseEntity.ok(attemptCopy);
     }
 
     @RequiredArgsConstructor

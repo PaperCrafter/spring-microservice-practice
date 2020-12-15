@@ -51,7 +51,6 @@ class MultiplicationResultControllerTest {
         genericParameterizedTest(false);
     }
 
-    @Test
     public void genericParameterizedTest(final boolean correct) throws Exception {
         //given
         given(multiplicationService
@@ -59,7 +58,7 @@ class MultiplicationResultControllerTest {
                 .willReturn(correct);
         User user = new User("paper");
         Multiplication multiplication = new Multiplication(50, 70);
-        MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500);
+        MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, correct);
         //when
         MockHttpServletResponse response = mvc.perform(post("/results")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -68,7 +67,12 @@ class MultiplicationResultControllerTest {
         //then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString())
-                .isEqualTo(jsonResponse.write(new ResultResponse(correct)).getJson());
+                .isEqualTo(jsonResult.write(new MultiplicationResultAttempt(
+                        attempt.getUser(),
+                        attempt.getMultiplication(),
+                        attempt.getResultAttempt(),
+                        correct)
+                ).getJson());
 
     }
 }

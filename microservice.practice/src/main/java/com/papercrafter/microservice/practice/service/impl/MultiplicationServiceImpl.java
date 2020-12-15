@@ -6,6 +6,7 @@ import com.papercrafter.microservice.practice.service.MultiplicationService;
 import com.papercrafter.microservice.practice.service.RandomGeneratorService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 @AllArgsConstructor
@@ -20,9 +21,13 @@ public class MultiplicationServiceImpl implements MultiplicationService {
     }
 
     @Override
-    public boolean checkAttempt(MultiplicationResultAttempt resultAttempt) {
-        return resultAttempt.getResultAttempt() ==
-                resultAttempt.getMultiplication().getFactorA() *
-                resultAttempt.getMultiplication().getFactorB();
+    public boolean checkAttempt(MultiplicationResultAttempt attempt) {
+        boolean correct = attempt.getResultAttempt() ==
+                attempt.getMultiplication().getFactorA() *
+                        attempt.getMultiplication().getFactorB();
+        Assert.isTrue(!attempt.isCorrect(), "채점한 상태로 보낼 수 없습니다!");
+        MultiplicationResultAttempt checkedAttempt = new MultiplicationResultAttempt(attempt.getUser(),
+                attempt.getMultiplication(), attempt.getResultAttempt(), correct);
+        return correct;
     }
 }
