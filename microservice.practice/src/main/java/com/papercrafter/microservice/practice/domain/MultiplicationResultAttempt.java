@@ -18,7 +18,7 @@ public class MultiplicationResultAttempt {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @Column(name = "USER_ID")
+    @JoinColumn(name = "USER_ID")
     private final User user;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

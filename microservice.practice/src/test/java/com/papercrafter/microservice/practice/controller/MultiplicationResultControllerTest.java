@@ -18,14 +18,14 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.papercrafter.microservice.practice.controller.MultiplicationResultController.ResultResponse;
+import static com.papercrafter.microservice.practice.controller.MultiplicationResultAttemptController.ResultResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(MultiplicationResultController.class)
+@WebMvcTest(MultiplicationResultAttemptController.class)
 class MultiplicationResultControllerTest {
     @MockBean
     private MultiplicationService multiplicationService;
