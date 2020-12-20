@@ -3,6 +3,8 @@ package com.papercrafter.microservice.practice.service.impl;
 import com.papercrafter.microservice.practice.domain.Multiplication;
 import com.papercrafter.microservice.practice.domain.MultiplicationResultAttempt;
 import com.papercrafter.microservice.practice.domain.User;
+import com.papercrafter.microservice.practice.event.EventDispatcher;
+import com.papercrafter.microservice.practice.event.MultiplicationSolveEvent;
 import com.papercrafter.microservice.practice.repository.MultiplicationRepository;
 import com.papercrafter.microservice.practice.repository.MultiplicationResultAttemptRepository;
 import com.papercrafter.microservice.practice.repository.UserRepository;
@@ -24,6 +26,7 @@ public class MultiplicationServiceImpl implements MultiplicationService {
     private final MultiplicationResultAttemptRepository attemptRepository;
     private final UserRepository userRepository;
     private final MultiplicationRepository multiplicationRepository;
+    private final EventDispatcher eventDispatcher;
 
     @Override
     public Multiplication createMultiplication() {
@@ -55,11 +58,18 @@ public class MultiplicationServiceImpl implements MultiplicationService {
                         isCorrect);
         attemptRepository.save(checkedAttempt);
 
+        //send event
+        eventDispatcher.send(new MultiplicationSolveEvent(
+                checkedAttempt.getId(),
+                checkedAttempt.getUser().getId(),
+                checkedAttempt.isCorrect()
+        ));
+
         return isCorrect;
     }
 
     @Override
-    public List<MultiplicationResultAttempt> getStatsForUser(String userAlias){
+    public List<MultiplicationResultAttempt> getStatsForUser(String userAlias) {
         return attemptRepository.findTop5ByUserAliasOrderByIdDesc(userAlias);
     }
 }
