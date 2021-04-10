@@ -3,6 +3,7 @@ package com.papercrafter.microservice.practice.service.impl;
 import com.papercrafter.microservice.practice.domain.Multiplication;
 import com.papercrafter.microservice.practice.domain.MultiplicationResultAttempt;
 import com.papercrafter.microservice.practice.domain.User;
+import com.papercrafter.microservice.practice.event.EventDispatcher;
 import com.papercrafter.microservice.practice.repository.MultiplicationRepository;
 import com.papercrafter.microservice.practice.repository.MultiplicationResultAttemptRepository;
 import com.papercrafter.microservice.practice.repository.UserRepository;
@@ -35,11 +36,14 @@ class MultiplicationServiceImplTest {
     @Mock
     private MultiplicationRepository multiplicationRepository;
 
+    @Mock
+    private EventDispatcher eventDispatcher;
+
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.openMocks(this);
         multiplicationServiceImpl = new MultiplicationServiceImpl(randomGeneratorService,
-                attemptRepository, userRepository, multiplicationRepository);
+                attemptRepository, userRepository, multiplicationRepository, eventDispatcher);
     }
 
     @Test

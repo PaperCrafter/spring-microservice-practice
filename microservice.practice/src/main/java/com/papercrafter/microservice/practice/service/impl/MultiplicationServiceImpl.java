@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,5 +70,10 @@ public class MultiplicationServiceImpl implements MultiplicationService {
     @Override
     public List<MultiplicationResultAttempt> getStatsForUser(String userAlias) {
         return attemptRepository.findTop5ByUserAliasOrderByIdDesc(userAlias);
+    }
+
+    @Override
+    public MultiplicationResultAttempt getResultById(final Long resultId) {
+        return attemptRepository.findById(resultId).get();
     }
 }
